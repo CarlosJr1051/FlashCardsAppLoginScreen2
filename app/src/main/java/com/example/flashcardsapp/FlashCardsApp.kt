@@ -1,6 +1,13 @@
 package com.example.flashcardsapp
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,7 +20,14 @@ import com.example.flashcardsapp.ui.screens.subjectDetail.SubjectDetailScreen
 import com.example.flashcardsapp.ui.viewmodels.AppViewModel
 
 @Composable
-fun FlashCardsApp() {
+fun FlashCardsApp(username: String) {
+    Text(
+        text = "Bem-vindo ao FlashCardsApp, $username!",
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .wrapContentSize(Alignment.Center)
+    )
     val navController = rememberNavController()
     val appViewModel: AppViewModel = viewModel()
 
@@ -47,7 +61,7 @@ fun FlashCardsApp() {
             route = "create_exercise/{subjectId}",
             arguments = listOf(navArgument("subjectId") { type = NavType.IntType })
         ){
-            backStackEntry ->
+                backStackEntry ->
             val subjectId = backStackEntry.arguments?.getInt("subjectId") ?: return@composable
             CreateExerciseScreen(
                 subjectId = subjectId,
